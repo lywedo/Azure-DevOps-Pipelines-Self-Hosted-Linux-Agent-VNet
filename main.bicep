@@ -18,15 +18,6 @@ param ADO_Account string
 @description('Pool name for the Self-Hosted Agents in ADO')
 param ADO_Pool string = 'SelfHostedACI'
 
-@description('KeyVault Name')
-param keyVaultName string 
-
-@description('KeyVault Resource Group')
-param keyVaultRG string 
-
-@description('ADO PAT Secret Name in KeyVault')
-param secretName string 
-
 @description('Name of the VNET to connect the agent containers')
 param vnetName string 
 
@@ -57,6 +48,9 @@ param registrySKU string = 'Basic'
 @description('Deployment Region')
 param location string = resourceGroup().location
 
+@description('Name of the Key Vault')
+param patToken string
+
 @description('current repo branch if building container through source control in this template')
 param sourceBranch string = 'master'
 
@@ -71,11 +65,6 @@ module network 'network.bicep' = {
     subnetName: subnetName
     subnetPrefix: subnetPrefix
   }
-}
-
-resource keyVault 'Microsoft.KeyVault/vaults@2021-10-01' existing = {
-  name: keyVaultName
-  scope: resourceGroup(keyVaultRG)
 }
 
 module registry 'registry.bicep' =  {
@@ -100,7 +89,7 @@ module containerGroupDeployment 'containers.bicep' = [for i in range(0, numberOf
     location: location
     image: registry.outputs.image
     ADO_Account: ADO_Account
-    AZP_Token: keyVault.getSecret(secretName)
+    AZP_Token: patToken
     ADO_Pool: ADO_Pool
     subnetId: network.outputs.subnetId
     agentCPU: agentCPU

@@ -18,6 +18,8 @@ resource registryServer 'Microsoft.ContainerRegistry/registries@2021-09-01' exis
   scope: resourceGroup(containerRegistryRG)
 }
 
+var registryCredentials = registryServer.listCredentials()
+
 resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2021-10-01' = {
   name: containerGroupName
   location: location
@@ -52,9 +54,9 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2021-10-01'
     ]
     imageRegistryCredentials: [
       {
-      server: registryServer.properties.loginServer
-      password: registryServer.listCredentials().passwords[0].value
-      username: registryServer.name
+        server: registryServer.properties.loginServer
+        username: registryServer.name
+        password: registryCredentials.passwords[0].value
       }
     ]
     osType: 'Linux'

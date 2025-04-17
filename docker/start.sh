@@ -27,15 +27,7 @@ export AGENT_ALLOW_RUNASROOT="1"
 cleanup() {
   if [ -e config.sh ]; then
     print_header "Cleanup. Removing Azure Pipelines agent..."
-
-    # If the agent has some running jobs, the configuration removal process will fail.
-    # So, give it some time to finish the job.
-    while true; do
-      ./config.sh remove --unattended --auth PAT --token $(cat "$AZP_TOKEN_FILE") && break
-
-      echo "Retrying in 30 seconds..."
-      sleep 30
-    done
+    ./config.sh remove --unattended --auth PAT --token $(cat "$AZP_TOKEN_FILE")
   fi
 }
 
@@ -50,6 +42,7 @@ export VSO_AGENT_IGNORE=AZP_TOKEN,AZP_TOKEN_FILE
 
 print_header "1. Determining matching Azure Pipelines agent..."
 
+# Ensure we get the latest 2.x agent
 AZP_AGENT_PACKAGES=$(curl -LsS \
     -u user:$(cat "$AZP_TOKEN_FILE") \
     -H 'Accept:application/json;' \
@@ -66,6 +59,10 @@ fi
 print_header "2. Downloading and extracting Azure Pipelines agent..."
 
 curl -LsS $AZP_AGENT_PACKAGE_LATEST_URL | tar -xz & wait $!
+
+# Verify agent version after extraction
+AGENT_VERSION=$(./bin/Agent.Listener --version)
+echo "Agent version: $AGENT_VERSION"
 
 source ./env.sh
 
@@ -87,8 +84,6 @@ trap 'cleanup; exit 0' EXIT
 trap 'cleanup; exit 130' INT
 trap 'cleanup; exit 143' TERM
 
-chmod +x ./run-docker.sh
-
 # To be aware of TERM and INT signals call run.sh
 # Running it with the --once flag at the end will shut down the agent after the build is executed
-./run-docker.sh "$@" & wait $!
+./run.sh & wait $!

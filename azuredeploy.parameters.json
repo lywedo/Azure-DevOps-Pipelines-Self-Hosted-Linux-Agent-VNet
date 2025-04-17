@@ -1,64 +1,66 @@
 {
-"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-"contentVersion": "1.0.0.0",
-"parameters": {
-    "ContainerGroupName": {
-        "value": "adoagent"
-    },
-    "numberOfInstances": {
-        "value": 10
-    },
-    "Image": {
-        "value": "<imageName>"
-    },
-    "ImageVersion": {
-        "value": "<imageVersion>"
-    },
-    "ADO_Account": {
-        "value": "https://dev.azure.com/<yourdevopsorg>"
-    },
-    "ADO_Pool": {
-        "value": "<ADO Pool Name>"
-    },
-    "keyVaultName":{
-        "value": "<name of the keyvault"
-    },
-    "keyVaultRG":{
-        "value": "<key vault resource group name>"
-    },
-    "secretName":{
-        "value": "<secret name for the ADO PAT>"
-    },
-    "vnetName": {
-        "value": "<vNetName>"
-    },
-    "vnetRGName":{
-        "value": "<Name of the VNET Resource Group>"
-    },
-    "subnetName":{
-        "value": "<delegatedsubnetName>"
-    },
-    "subnetPrefix":{
-        "value": "<Subnet CIDR PRefix"
-    },
-    "agentCPU":{
-        "value": 1
-    },
-    "agentMem":{
-        "value": 3
-    },
-    "containerRegistryName":{
-        "value": "<registry Name>"
-    },
-    "containerRegistryRG":{
-        "value": "<registry Resource Group>"
-    },
-    "sourceBranch":{
-        "value": "master"
-    },
-    "dockerSourceRepo": {
-        "value": "https://github.com/everazurerest/aci-pipelines-agent-linux.git"
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "ContainerGroupName": {
+            "value": "adoagent"
+        },
+        "numberOfInstances": {
+            "value": 1
+        },
+        "Image": {
+            "value": ""
+        },
+        "ImageVersion": {
+            "value": "0.0.2"
+        },
+        "ADO_Account": {
+            "value": ""
+        },
+        "ADO_Pool": {
+            "value": "container-apps"
+        },
+        "keyVaultName": {
+            "value": "OrchardKV"
+        },
+        "keyVaultRG": {
+            "value": ""
+        },
+        "secretName": {
+            "value": ""
+        },
+        "vnetName": {
+            "value": ""
+        },
+        "vnetRGName": {
+            "value": ""
+        },
+        "subnetName": {
+            "value": "default"
+        },
+        "subnetPrefix": {
+            "value": "10.0.1.0/24"
+        },
+        "agentCPU": {
+            "value": 1
+        },
+        "agentMem": {
+            "value": 3
+        },
+        "containerRegistryName": {
+            "value": ""
+        },
+        "containerRegistryRG": {
+            "value": ""
+        },
+        "sourceBranch": {
+            "value": "master"
+        },
+        "dockerSourceRepo": {
+            "value": "https://github.com/everazurerest/aci-pipelines-agent-linux.git"
+        },
+        "patToken": {
+            "value": ""
+        }
     }
-
-}
 }
