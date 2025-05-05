@@ -3,6 +3,10 @@
 az deployment group create -n deploymentName  -g rg-myorchard-dev-001 --template-file ./main.bicep --parameters ./azuredeploy.orchard.parameters.json
 ```
 
+```
+az deployment sub create -n deploymentName --location australiaeast --template-file ./main.bicep --parameters ./azuredeploy.pallet.parameters.json
+```
+
 
 # Delete agent once it is offline
 ```

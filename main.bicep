@@ -1,4 +1,4 @@
-targetScope = 'resourceGroup'
+targetScope = 'subscription'
 
 @description('The Name of the ACI Container Group')
 param containerGroupName string = 'adoshagent'
@@ -46,7 +46,7 @@ param containerRegistryRG string
 param registrySKU string = 'Basic'
 
 @description('Deployment Region')
-param location string = resourceGroup().location
+param location string
 
 @description('Name of the Key Vault')
 param patToken string
@@ -57,6 +57,24 @@ param sourceBranch string = 'master'
 @description('URI to the code repository with the Dockerfile - define or change if forked')
 param dockerSourceRepo string = 'https://github.com/everazurerest/aci-pipelines-agent-linux.git'
 
+module vnetRG 'create-resource-group.bicep' = {
+  name: 'VNetResourceGroupDeployment'
+  scope: subscription()
+  params: {
+    resourceGroupName: vnetRGName
+    location: location
+  }
+}
+
+module registryRG 'create-resource-group.bicep' = if(containerRegistryRG != vnetRGName) {
+  name: 'RegistryResourceGroupDeployment'
+  scope: subscription()
+  params: {
+    resourceGroupName: containerRegistryRG
+    location: location
+  }
+}
+
 module network 'network.bicep' = {
   name: 'NetworkDeployment'
   scope: resourceGroup(vnetRGName)
@@ -64,26 +82,31 @@ module network 'network.bicep' = {
     vnetName: vnetName
     subnetName: subnetName
     subnetPrefix: subnetPrefix
+    location: location
   }
+  dependsOn: [
+    vnetRG
+  ]
 }
 
-module registry 'registry.bicep' =  {
+module registry 'registry.bicep' = {
   name: 'RegistryDeployment'
   scope: resourceGroup(containerRegistryRG)
   params: {
     containerRegistryName: containerRegistryName
     registrySku: registrySKU
     location: location
-    dockerSourceRepo:dockerSourceRepo
+    dockerSourceRepo: dockerSourceRepo
     branch: sourceBranch
     image: Image
     imageVersion: imageVersion
   }
+  dependsOn: containerRegistryRG == vnetRGName ? [vnetRG] : [registryRG]
 }
 
 module containerGroupDeployment 'containers.bicep' = [for i in range(0, numberOfInstances): {
   name: 'containerDeployment-${i}'
-  scope: resourceGroup()
+  scope: resourceGroup(containerRegistryRG)
   params: {
     containerGroupName: '${containerGroupName}${i}'
     location: location
@@ -97,6 +120,10 @@ module containerGroupDeployment 'containers.bicep' = [for i in range(0, numberOf
     containerRegistryName: containerRegistryName
     containerRegistryRG: containerRegistryRG
   }
+  dependsOn: [
+    registry
+    network
+  ]
 }]
 
 

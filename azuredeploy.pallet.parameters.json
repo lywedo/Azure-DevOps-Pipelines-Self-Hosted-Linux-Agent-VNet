@@ -3,37 +3,28 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "ContainerGroupName": {
-            "value": "adoagent"
+            "value": "pallet-agent"
         },
         "numberOfInstances": {
             "value": 1
         },
         "Image": {
-            "value": ""
+            "value": "pallet"
         },
         "ImageVersion": {
-            "value": "0.0.2"
+            "value": "0.0.1"
         },
         "ADO_Account": {
-            "value": ""
+            "value": "https://dev.azure.com/EastPackDev"
         },
         "ADO_Pool": {
             "value": "container-apps"
         },
-        "keyVaultName": {
-            "value": "OrchardKV"
-        },
-        "keyVaultRG": {
-            "value": ""
-        },
-        "secretName": {
-            "value": ""
-        },
         "vnetName": {
-            "value": ""
+            "value": "pallet-vnet"
         },
         "vnetRGName": {
-            "value": ""
+            "value": "rg-pallet-uat-001"
         },
         "subnetName": {
             "value": "default"
@@ -48,10 +39,10 @@
             "value": 3
         },
         "containerRegistryName": {
-            "value": ""
+            "value": "palletRegistry"
         },
         "containerRegistryRG": {
-            "value": ""
+            "value": "rg-pallet-uat-001"
         },
         "sourceBranch": {
             "value": "master"
@@ -60,10 +51,10 @@
             "value": "https://github.com/everazurerest/aci-pipelines-agent-linux.git"
         },
         "patToken": {
-            "value": ""
+            "value": "Cfem18515qHunYUdDCd3K0JlMqSe39C4gq2q0Ft1iA04u5THLAkEJQQJ99BDACAAAAAtaLP0AAASAZDO1V5X"
         },
         "location": {
-            "value": ""
+            "value": "australiaeast"
         }
     }
 }
