@@ -12,6 +12,7 @@ param agentCPU int
 param agentMem int
 param containerRegistryName string
 param containerRegistryRG string
+param agentName string = containerGroupName
 
 resource registryServer 'Microsoft.ContainerRegistry/registries@2021-09-01' existing = {
   name: containerRegistryName
@@ -41,6 +42,10 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2021-10-01'
             {
               name: 'AZP_POOL'
               value: ADO_Pool
+            }
+                        {
+              name: 'AZP_AGENT_NAME'
+              value: agentName
             }
           ]
           resources: {

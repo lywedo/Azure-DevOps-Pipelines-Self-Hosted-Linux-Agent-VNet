@@ -57,6 +57,8 @@ param sourceBranch string = 'master'
 @description('URI to the code repository with the Dockerfile - define or change if forked')
 param dockerSourceRepo string = 'https://github.com/everazurerest/aci-pipelines-agent-linux.git'
 
+param agentName string
+
 module vnetRG 'create-resource-group.bicep' = {
   name: 'VNetResourceGroupDeployment'
   scope: subscription()
@@ -119,6 +121,7 @@ module containerGroupDeployment 'containers.bicep' = [for i in range(0, numberOf
     agentMem: agentMem
     containerRegistryName: containerRegistryName
     containerRegistryRG: containerRegistryRG
+    agentName: agentName
   }
   dependsOn: [
     registry

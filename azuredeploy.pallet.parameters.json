@@ -55,6 +55,9 @@
         },
         "location": {
             "value": "australiaeast"
+        },
+        "agentName": {
+            "value": "pallet-uat"
         }
     }
 }
