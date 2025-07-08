@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "ContainerGroupName": {
-            "value": "orchard-agent"
+            "value": "orchard-dev-agent"
         },
         "numberOfInstances": {
             "value": 1
@@ -33,16 +33,16 @@
             "value": "10.0.1.0/24"
         },
         "agentCPU": {
-            "value": 1
+            "value": 2
         },
         "agentMem": {
-            "value": 3
+            "value": 4
         },
         "containerRegistryName": {
             "value": "orchardcontainerregistry"
         },
         "containerRegistryRG": {
-            "value": "rg-myorchard-shared-001"
+            "value": "rg-myorchard-dev-001"
         },
         "sourceBranch": {
             "value": "master"
@@ -51,7 +51,7 @@
             "value": "https://github.com/everazurerest/aci-pipelines-agent-linux.git"
         },
         "patToken": {
-            "value": "Cfem18515qHunYUdDCd3K0JlMqSe39C4gq2q0Ft1iA04u5THLAkEJQQJ99BDACAAAAAtaLP0AAASAZDO1V5X"
+            "value": "EGx5HAFAagox2oDdG8Tl6iMYaR6gmKvxMWnEnOU8g80L6T7xuO8rJQQJ99BGACAAAAAtaLP0AAASAZDOXC62"
         },
         "location": {
             "value": "australiaeast"
