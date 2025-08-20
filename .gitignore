@@ -1,2 +1,6 @@
 testparams.json
 azuredeploy.orchard.parameters.json
+
+# PAT Token files - contains sensitive information
+pat-tokens.json
+pat-tokens*.json

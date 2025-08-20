@@ -3,13 +3,13 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "ContainerGroupName": {
-            "value": "pallet-uat-agent"
+            "value": "platform-dev-agent"
         },
         "numberOfInstances": {
             "value": 1
         },
         "Image": {
-            "value": "pallet"
+            "value": "platform"
         },
         "ImageVersion": {
             "value": "0.0.1"
@@ -21,10 +21,10 @@
             "value": "container-apps"
         },
         "vnetName": {
-            "value": "pallet-vnet"
+            "value": "platform-vnet"
         },
         "vnetRGName": {
-            "value": "rg-pallet-uat-001"
+            "value": "rg-platformv-dev-001"
         },
         "subnetName": {
             "value": "default"
@@ -33,16 +33,16 @@
             "value": "10.0.1.0/24"
         },
         "agentCPU": {
-            "value": 1
+            "value": 2
         },
         "agentMem": {
-            "value": 3
+            "value": 4
         },
         "containerRegistryName": {
-            "value": "palletuatRegistry"
+            "value": "platformvcontainerregistry"
         },
         "containerRegistryRG": {
-            "value": "rg-pallet-uat-001"
+            "value": "rg-platformv-dev-001"
         },
         "sourceBranch": {
             "value": "master"
@@ -51,10 +51,10 @@
             "value": "https://github.com/everazurerest/aci-pipelines-agent-linux.git"
         },
         "location": {
-            "value": "australiaeast"
+            "value": "newzealandnorth"
         },
         "agentName": {
-            "value": "pallet-uat"
+            "value": "platform-dev"
         }
     }
 }

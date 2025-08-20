@@ -50,9 +50,6 @@
         "dockerSourceRepo": {
             "value": "https://github.com/everazurerest/aci-pipelines-agent-linux.git"
         },
-        "patToken": {
-            "value": "Cfem18515qHunYUdDCd3K0JlMqSe39C4gq2q0Ft1iA04u5THLAkEJQQJ99BDACAAAAAtaLP0AAASAZDO1V5X"
-        },
         "location": {
             "value": "australiaeast"
         },
