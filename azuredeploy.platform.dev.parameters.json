@@ -12,7 +12,7 @@
             "value": "platform"
         },
         "ImageVersion": {
-            "value": "0.0.1"
+            "value": "0.0.2"
         },
         "ADO_Account": {
             "value": "https://dev.azure.com/EastPackDev"

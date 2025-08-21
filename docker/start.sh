@@ -68,6 +68,22 @@ source ./env.sh
 
 print_header "3. Configuring Azure Pipelines agent..."
 
+# Create capabilities file to register sqlpackage
+mkdir -p .agent
+cat > .agent/capabilities <<EOF
+sqlpackage=/opt/sqlpackage/sqlpackage
+Agent.OS=Linux
+Agent.OSArchitecture=X64
+EOF
+
+# Verify sqlpackage is available
+if command -v sqlpackage &> /dev/null; then
+    echo "sqlpackage is available at: $(which sqlpackage)"
+    echo "sqlpackage version: $(sqlpackage /version)"
+else
+    echo "Warning: sqlpackage not found in PATH"
+fi
+
 ./config.sh --unattended \
   --agent "${AZP_AGENT_NAME:-$(hostname)}" \
   --url "$AZP_URL" \
