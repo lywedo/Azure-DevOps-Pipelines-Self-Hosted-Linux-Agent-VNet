@@ -85,14 +85,15 @@ else
 fi
 
 ./config.sh --unattended \
-  --agent "${AZP_AGENT_NAME:-$(hostname)}" \
+  --agent "$AZP_AGENT_NAME" \
   --url "$AZP_URL" \
   --auth PAT \
-  --token $(cat "$AZP_TOKEN_FILE") \
-  --pool "${AZP_POOL:-Default}" \
-  --work "${AZP_WORK:-_work}" \
+  --token "$AZP_TOKEN" \
+  --pool "$AZP_POOL" \
+  --work "$AZP_WORK" \
   --replace \
-  --acceptTeeEula & wait $!
+  --acceptTeeEula \
+  --addcapabilities "sqlpackage=$(command -v sqlpackage)"
 
 print_header "4. Running Azure Pipelines agent..."
 
