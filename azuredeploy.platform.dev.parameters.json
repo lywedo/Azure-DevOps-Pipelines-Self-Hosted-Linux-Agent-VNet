@@ -11,8 +11,8 @@
         "Image": {
             "value": "platform"
         },
-        "ImageVersion": {
-            "value": "0.0.2"
+        "imageVersion": {
+            "value": "0.0.3"
         },
         "ADO_Account": {
             "value": "https://dev.azure.com/EastPackDev"
@@ -45,10 +45,10 @@
             "value": "rg-platformv-dev-001"
         },
         "sourceBranch": {
-            "value": "master"
+            "value": "main"
         },
         "dockerSourceRepo": {
-            "value": "https://github.com/everazurerest/aci-pipelines-agent-linux.git"
+            "value": "https://github.com/lywedo/Azure-DevOps-Pipelines-Self-Hosted-Linux-Agent-VNet.git"
         },
         "location": {
             "value": "newzealandnorth"
