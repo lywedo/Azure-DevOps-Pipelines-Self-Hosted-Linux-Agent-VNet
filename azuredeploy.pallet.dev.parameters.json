@@ -45,10 +45,10 @@
             "value": "rg-pallet-dev-001"
         },
         "sourceBranch": {
-            "value": "master"
+            "value": "main"
         },
         "dockerSourceRepo": {
-            "value": "https://github.com/everazurerest/aci-pipelines-agent-linux.git"
+            "value": "https://github.com/lywedo/Azure-DevOps-Pipelines-Self-Hosted-Linux-Agent-VNet.git"
         },
         "location": {
             "value": "australiaeast"
