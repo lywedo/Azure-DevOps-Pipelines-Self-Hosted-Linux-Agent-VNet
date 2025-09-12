@@ -68,32 +68,36 @@ source ./env.sh
 
 print_header "3. Configuring Azure Pipelines agent..."
 
-# Create capabilities file to register sqlpackage
+SQLPACKAGE_PATH="$(command -v sqlpackage || true)"
+
+# Create capabilities file with the actual sqlpackage path (if available)
 mkdir -p .agent
-cat > .agent/capabilities <<EOF
-sqlpackage=/opt/sqlpackage/sqlpackage
-Agent.OS=Linux
-Agent.OSArchitecture=X64
-EOF
+{
+  echo "Agent.OS=Linux"
+  echo "Agent.OSArchitecture=X64"
+  if [ -n "$SQLPACKAGE_PATH" ]; then
+    echo "sqlpackage=$SQLPACKAGE_PATH"
+  fi
+} > .agent/capabilities
 
 # Verify sqlpackage is available
-if command -v sqlpackage &> /dev/null; then
-    echo "sqlpackage is available at: $(which sqlpackage)"
-    echo "sqlpackage version: $(sqlpackage /version)"
+if [ -n "$SQLPACKAGE_PATH" ]; then
+  echo "sqlpackage is available at: $SQLPACKAGE_PATH"
+  sqlpackage /Version || true
 else
-    echo "Warning: sqlpackage not found in PATH"
+  echo "Warning: sqlpackage not found in PATH" >&2
 fi
 
 ./config.sh --unattended \
   --agent "$AZP_AGENT_NAME" \
   --url "$AZP_URL" \
   --auth PAT \
-  --token "$AZP_TOKEN" \
+  --token $(cat "$AZP_TOKEN_FILE") \
   --pool "$AZP_POOL" \
   --work "$AZP_WORK" \
   --replace \
   --acceptTeeEula \
-  --addcapabilities "sqlpackage=$(command -v sqlpackage)"
+  $( [ -n "$SQLPACKAGE_PATH" ] && echo --addcapabilities "sqlpackage=$SQLPACKAGE_PATH" )
 
 print_header "4. Running Azure Pipelines agent..."
 
