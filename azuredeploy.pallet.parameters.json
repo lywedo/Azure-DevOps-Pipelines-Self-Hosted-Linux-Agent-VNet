@@ -32,6 +32,9 @@
         "subnetPrefix": {
             "value": "10.0.1.0/24"
         },
+        "addressPrefixes": {
+            "value": ["10.0.1.0/24"]
+        },
         "agentCPU": {
             "value": 1
         },

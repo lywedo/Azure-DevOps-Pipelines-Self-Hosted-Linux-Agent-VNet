@@ -30,6 +30,12 @@ param subnetName string
 @description('Subnet CIDR prefix for the Container Instance subnet')
 param subnetPrefix string 
 
+@description('Address space prefixes for the virtual network (only used when useExistingVnet is false)')
+param addressPrefixes array = []
+
+@description('Set to true to use an existing VNet instead of creating a new one')
+param useExistingVnet bool = true
+
 @description('Number of cores assigned to each container instance')
 param agentCPU int = 1
 
@@ -84,7 +90,9 @@ module network 'network.bicep' = {
     vnetName: vnetName
     subnetName: subnetName
     subnetPrefix: subnetPrefix
+    addressPrefixes: addressPrefixes
     location: location
+    useExistingVnet: useExistingVnet
   }
   dependsOn: [
     vnetRG

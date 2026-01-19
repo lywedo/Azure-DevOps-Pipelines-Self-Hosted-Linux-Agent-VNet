@@ -1,6 +1,7 @@
 # Create costom pipeline agent under VNet
 ```
 az deployment sub create -n deploymentName --location australiaeast --template-file ./main.bicep --parameters ./azuredeploy.orchard.dev.parameters.json --parameters @pat-tokens.json
+az deployment sub create -n deploymentName --location australiaeast --template-file ./main.bicep --parameters ./azuredeploy.orchard.uat.parameters.json --parameters @pat-tokens.json
 ```
 
 ```

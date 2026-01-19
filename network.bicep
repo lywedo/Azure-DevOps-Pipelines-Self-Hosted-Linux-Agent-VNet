@@ -8,33 +8,35 @@ param subnetPrefix string
 
 param subnetName string
 
+// Not used when referencing existing VNet, but kept for backwards compatibility
+param addressPrefixes array = []
+
+// Set to true to use an existing VNet instead of creating a new one
+param useExistingVnet bool = true
+
 var delegationName = 'aciVnetDelegation'
 
-resource vnet 'Microsoft.Network/virtualnetworks@2015-05-01-preview' existing = {
+// Reference existing VNet (does not modify the VNet itself, preserves all existing subnets)
+resource existingVnet 'Microsoft.Network/virtualNetworks@2024-01-01' existing = if (useExistingVnet) {
   name: vnetName
 }
-// resource vnet 'Microsoft.Network/virtualNetworks@2024-01-01' = {
-//   location: location
-//   name: vnetName
-//   properties: {
-//     addressSpace: {
-//       addressPrefixes: ['10.0.0.0/16']
-//     }
-//     subnets: [
-//       {
-//         name: 'default'
-//         properties: {
-//           addressPrefix: '10.0.1.0/24'
-//         }
-//       }
-//     ]
-//   }
-  
-// }
 
-resource subnet 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
+// Create new VNet only if useExistingVnet is false
+resource newVnet 'Microsoft.Network/virtualNetworks@2024-01-01' = if (!useExistingVnet) {
+  location: location
+  name: vnetName
+  properties: {
+    addressSpace: {
+      addressPrefixes: addressPrefixes
+    }
+  }
+}
+
+// Add subnet to the VNet (works with both existing and new VNet)
+// This only creates/updates this specific subnet, does NOT affect other subnets
+resource subnet 'Microsoft.Network/virtualNetworks/subnets@2024-01-01' = {
   name: subnetName
-  parent: vnet
+  parent: existingVnet
   properties: {
     addressPrefix: subnetPrefix
     delegations: [
@@ -43,11 +45,9 @@ resource subnet 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = {
         properties: {
           serviceName: 'Microsoft.ContainerInstance/containerGroups'
         }
-        type: 'Microsoft.Network/virtualNetworks/subnets/delegations'
       }
     ]
   }
-  
 }
 
 output subnetId string = subnet.id

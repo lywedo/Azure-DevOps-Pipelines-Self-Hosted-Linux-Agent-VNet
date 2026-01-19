@@ -26,11 +26,17 @@
         "vnetRGName": {
             "value": "rg-pallet-dev-001"
         },
+        "useExistingVnet": {
+            "value": true
+        },
         "subnetName": {
-            "value": "default"
+            "value": "aci-agent-subnet"
         },
         "subnetPrefix": {
-            "value": "10.0.1.0/24"
+            "value": "10.94.17.0/28"
+        },
+        "addressPrefixes": {
+            "value": ["10.94.17.0/24"]
         },
         "agentCPU": {
             "value": 1

@@ -3,16 +3,16 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "ContainerGroupName": {
-            "value": "pallet-uat-agent"
+            "value": "orchard-uat-agent"
         },
         "numberOfInstances": {
             "value": 1
         },
         "Image": {
-            "value": "pallet"
+            "value": "orchard"
         },
         "ImageVersion": {
-            "value": "0.0.1"
+            "value": "0.0.2"
         },
         "ADO_Account": {
             "value": "https://dev.azure.com/EastPackDev"
@@ -21,31 +21,31 @@
             "value": "container-apps"
         },
         "vnetName": {
-            "value": "pallet-vnet"
+            "value": "orchard-vnet"
         },
         "vnetRGName": {
-            "value": "rg-pallet-uat-001"
+            "value": "rg-myorchard-uat-001"
         },
         "subnetName": {
             "value": "default"
         },
         "subnetPrefix": {
-            "value": "10.0.1.0/24"
+            "value": "10.94.16.0/28"
         },
         "addressPrefixes": {
-            "value": ["10.0.1.0/24"]
+            "value": ["10.94.16.0/24"]
         },
         "agentCPU": {
-            "value": 1
+            "value": 2
         },
         "agentMem": {
-            "value": 3
+            "value": 4
         },
         "containerRegistryName": {
-            "value": "palletuatRegistry"
+            "value": "orchardcontainerregistryuat"
         },
         "containerRegistryRG": {
-            "value": "rg-pallet-uat-001"
+            "value": "rg-myorchard-uat-001"
         },
         "sourceBranch": {
             "value": "main"
@@ -54,10 +54,10 @@
             "value": "https://github.com/lywedo/Azure-DevOps-Pipelines-Self-Hosted-Linux-Agent-VNet.git"
         },
         "location": {
-            "value": "australiaeast"
+            "value": "newzealandnorth"
         },
         "agentName": {
-            "value": "pallet-uat"
+            "value": "myorchard-uat"
         }
     }
 }
