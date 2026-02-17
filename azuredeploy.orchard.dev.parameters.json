@@ -2,6 +2,9 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "useExistingVnet": {
+            "value": true
+        },
         "ContainerGroupName": {
             "value": "orchard-dev-agent"
         },
@@ -27,10 +30,10 @@
             "value": "rg-myorchard-dev-001"
         },
         "subnetName": {
-            "value": "default"
+            "value": "aci-agent-subnet"
         },
         "subnetPrefix": {
-            "value": "10.94.16.0/24"
+            "value": "10.94.16.0/28"
         },
         "addressPrefixes": {
             "value": ["10.94.16.0/24"]

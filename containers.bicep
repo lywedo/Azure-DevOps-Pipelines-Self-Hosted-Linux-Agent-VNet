@@ -71,6 +71,12 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2021-10-01'
         id: subnetId
       }
     ]
+    // Use Azure DNS for private endpoint resolution
+    dnsConfig: {
+      nameServers: [
+        '168.63.129.16'  // Azure DNS for private DNS zone resolution
+      ]
+    }
   }
 }
 
